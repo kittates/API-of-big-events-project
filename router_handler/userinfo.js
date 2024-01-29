@@ -20,13 +20,15 @@ getUserinfo = (req,res) => {
 }
 //更新用户信息
 updateUserinfo = (req,res) => {
-    const sql2 = "update ev_user set ? where id = ";
+    const sql2 = "update ev_users set ? where id = ?";
     db.getConnection((err,connection) => {
         if(err) return res.cc("2数据库连接失败 "+err.message);
-        db.query(sql2,[req.auth,req.auth.id],(err,results) => {
+        db.query(sql2,[req.body,req.body.id],(err,results) => {
+            console.log(req.auth);
+            console.log(req.body);
             if(err) return res.cc("2查询失败 "+err.message);
             if(results.affectedRows !== 1) return res.cc("用户不存在");
-            res.send("修改成功",0);
+            res.cc("修改成功",0);
         })
         connection.release();
     }) 
@@ -38,7 +40,7 @@ updatePassword = (req,res) => {
     const sql2 = "select * from ev_users where id = ?";
     db.getConnection((err,connection) => {
         if(err) return res.cc(err);
-        db.query(sql,[req.auth.id],(err,results) => {
+        db.query(sql2,[req.auth.id],(err,results) => {
             if(err) return res.cc("查询失败");
             let compareResult = bcrypt.compareSync(req.body.oldPwd,results[0].password);
             if(!compareResult) return res.cc("原密码输入错误");
@@ -61,6 +63,7 @@ updatePassword = (req,res) => {
 
 }
 //更新头像
+//uri = base64
 updateAvatar = (req,res) => {
     const sql = "update ev_users set user_pic = ? where id = ?";
     db.getConnection((err,connection) => {

@@ -35,6 +35,7 @@ reg_login_schema = {
     }
 }
 update_userinfo_schema = {
+    //id: id
     body: {
         id,
         nickname,
@@ -43,8 +44,8 @@ update_userinfo_schema = {
 }
 update_password_schema = {
     body: {
-        oldPwd: password,//这个password是上面所定义的规则
-        newPwd: joi.not(joi.ref('oldPwd')).concat(password)
+        oldPwd: password,//password是上面所定义的规则
+        newPwd: joi.not(joi.ref('oldPwd')).concat(password)//joi.ref表示newPwd与oldPwd的值不同
     }
 }
 update_avatar_schema = {

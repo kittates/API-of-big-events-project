@@ -1,0 +1,26 @@
+<!-- 这个主要用于测试上传cover_img，file表单的name需要设置为"cover_img -->
+<!-- 单独使用此文件测试时，需要将app.js中解析JWT token的中间件给注释掉，否则会出现No authorization token was found的错误 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="http://localhost:8086/my/article/add" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="Authorization" value="Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoibWVnIiwicGFzc3dvcmQiOiIiLCJuaWNrbmFtZSI6Im1lZyBncmlmZmluIiwiZW1haWwiOiIzMzI0NTI5ODcyQGdtYWlsLmNvbSIsInVzZXJfcGljIjoiIiwiaWF0IjoxNzA2NTI3NTk3LCJleHAiOjE3MDY1NjM1OTd9.8IrtKxvM-yFAKXxKcNPIPMARKX9jEw6utYog48fao74">
+
+        <input type="file" name="cover_img" multiple>
+        title:<input type="text" name="title" id="">
+        cate_id:<input type="text" name="cate_id" id="">
+        content:<input type="text" name="content" id="">
+        state:<select type="select" name="state" id="">
+            <option value="已发布">已发布</option>
+            <option value="草稿">草稿</option>
+        </select>
+        <input type="submit" value="click">
+    </form>
+</body>
+</html>
